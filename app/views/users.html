@@ -1,1 +1,46 @@
-<h1>users</h1>
+<section ng-controller="UserCtrl">
+  <div class="user index">
+    <h1>All Users</h1>
+    <ul>
+      <li ng-repeat="user in users">{{user.first_name}} | <a href="javascript:void(0)" ng-click="viewUser(user)">view</a> | <a href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></li>
+    </ul>  
+  </div>
+  <div ng-show="currentUser" class="user show">
+    <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
+    <p>id: {{currentUser.id}} | role: {{currentUser.role}} | title: {{currentUser.title.name}}
+    </p>
+    <ul>
+      <li ng-repeat="skill in currentUser.skills">{{skill.name}}</li>
+    </ul>
+  </div>
+  <div ng-show="currentUser">
+    <form name="addUserSkillForm" ng-submit="addUserSkill()" novalidate>
+      <div ng-repeat="skill in skills">
+        <input type="checkbox" name="{{currentUser.first_name}}-{{skill.id}}">
+        <label for="{{currentUser.first_name}}-{{skill.id}}" ng-model="userSkill">{{skill.name}}</label>
+      </div>
+      <button type="submit" ng-disabled="addUserSkillForm.$invalid">Submit</button>
+    </form>
+  </div>
+  <hr>
+  <div class="user create">
+    <h1>Create a new user</h1>
+    <form role="form" name="createUserForm" ng-submit="createUser(user)" novalidate>
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" placeholder="first name" ng-model="user.first_name">
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" name="last_name" placeholder="first name" ng-model="user.last_name">
+      </div>
+      <div class="form-group">
+        <label for="titles">Title for user</label>
+        <select name="titles" ng-model="user.title_id" required>
+          <option ng-repeat="title in titles" value="{{title.id}}">{{title.name}}</option>
+        </select>
+      </div>
+      <button type="submit" ng-disabled="createUserForm.$invalid">Submit</button>
+    </form>
+  </div>
+</section>

@@ -40,4 +40,8 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  }).run(function(titleFactory){
+    titleFactory.fetch();
+  }).run(function(skillsFactory){
+    skillsFactory.fetch();
   });
