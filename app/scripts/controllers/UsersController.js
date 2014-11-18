@@ -3,6 +3,7 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,title
   
   $scope.users = [];
   $scope.selection = { ids: {}};
+  $scope.master = {};
 
   $http.get('http://localhost:3000/users').success(function(response){
     $scope.users = response;
@@ -34,9 +35,19 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,title
     $scope.user = user;
   };
 
+  $scope.hasSkill = function(skill){
+    var found = [];
+    if (typeof $scope.user !== 'undefined' && typeof $scope.user.skills !== 'undefined') {
+      found = $scope.user.skills.filter(function(item) {
+        return item.id === skill.id;
+      });
+    }
+    return found.length > 0;
+  };
+
   $scope.viewUser = function(user){
     $scope.currentUser = user;
-    // $scope.currentUserSkills = user.skills;
+    $scope.currentUserSkills = user.skills;
   };
 
   $scope.deleteUser = function(user){
@@ -51,10 +62,41 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,title
     });
   };
 
-  $scope.addUserSkill = function(skill){
-    // $scope.skillToAdd.push(skill);
-    // userSkill PATCH  /users/:user_id/skills/:id(.:format) skills#update
-    trace(skill);
+  $scope.reset = function() {
+    $scope.user = angular.copy($scope.master);
+    $scope.selection = angular.copy($scope.master);
   };
 
+  $scope.reset();
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

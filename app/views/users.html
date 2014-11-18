@@ -3,9 +3,24 @@
   <!-- All users list -->
   <div class="user index">
     <h1>All Users</h1>
-    <ul>
-      <li ng-repeat="user in users">{{::user.first_name}} | <a href="javascript:void(0)" ng-click="updateUser(user)">Update</a> | <a href="javascript:void(0)" ng-click="viewUser(user)">view</a> | <a href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></li>
-    </ul>  
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Title</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in users">
+          <td>{{::user.first_name}}</td>
+          <td>{{::user.last_name}}</td>
+          <td>{{::titles[user.title_id - 1].name}}</td>
+          <td><a href="javascript:void(0)" ng-click="updateUser(user)">Update</a> | <a href="javascript:void(0)" ng-click="viewUser(user)">view</a> | <a href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- currentUser show -->
@@ -34,21 +49,20 @@
       </div>
       <div class="form-group">
         <label for="titles">Title for user</label>
-        <select name="titles" ng-model="user.title_id" required>
-          <option ng-repeat="title in titles" value="{{title.id}}">{{title.name}}</option>
+        <select name="titles" ng-model="user.title_id" ng-options="title.id as title.name for title in titles" required>
+          <option value="">Select One</option>
         </select>
       </div>
       <div ng-repeat="skill in skills">
-        <input type="checkbox" ng-model="selection.ids[skill.id]" name="{{skill.name}}" >
+        <input type="checkbox" ng-checked="hasSkill(skill)" ng-model="selection.ids[skill.id]" name="{{skill.name}}" >
         <label for="{{skill.name}}">{{skill.name}}</label>
       </div>
+      <button ng-click="reset()">Reset</button>
       <button type="submit" ng-disabled="createUserForm.$invalid">Submit</button>
     </form>
   </div>
 
-  <div>
-    <pre ng-bind="selection.ids | json"></pre>   
-  </div>
+  
 </section>
 
 
