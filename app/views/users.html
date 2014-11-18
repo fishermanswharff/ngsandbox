@@ -1,31 +1,29 @@
 <section ng-controller="UserCtrl">
+  
+  <!-- All users list -->
   <div class="user index">
     <h1>All Users</h1>
     <ul>
-      <li ng-repeat="user in users">{{user.first_name}} | <a href="javascript:void(0)" ng-click="viewUser(user)">view</a> | <a href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></li>
+      <li ng-repeat="user in users">{{::user.first_name}} | <a href="javascript:void(0)" ng-click="updateUser(user)">Update</a> | <a href="javascript:void(0)" ng-click="viewUser(user)">view</a> | <a href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></li>
     </ul>  
   </div>
+
+  <!-- currentUser show -->
   <div ng-show="currentUser" class="user show">
     <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
-    <p>id: {{currentUser.id}} | role: {{currentUser.role}} | title: {{currentUser.title.name}}
+    <p>id: {{currentUser.id}} | role: {{currentUser.role}} | title: {{titles[currentUser.title_id - 1].name}}
     </p>
     <ul>
       <li ng-repeat="skill in currentUser.skills">{{skill.name}}</li>
     </ul>
   </div>
-  <div ng-show="currentUser">
-    <form name="addUserSkillForm" ng-submit="addUserSkill()" novalidate>
-      <div ng-repeat="skill in skills">
-        <input type="checkbox" name="{{currentUser.first_name}}-{{skill.id}}">
-        <label for="{{currentUser.first_name}}-{{skill.id}}" ng-model="userSkill">{{skill.name}}</label>
-      </div>
-      <button type="submit" ng-disabled="addUserSkillForm.$invalid">Submit</button>
-    </form>
-  </div>
+
   <hr>
+
+  <!-- create a new user -->
   <div class="user create">
     <h1>Create a new user</h1>
-    <form role="form" name="createUserForm" ng-submit="createUser(user)" novalidate>
+    <form role="form" name="createUserForm" ng-submit="upsertUser(user)" novalidate>
       <div class="form-group">
         <label for="first_name">First Name</label>
         <input type="text" name="first_name" placeholder="first name" ng-model="user.first_name">
@@ -40,7 +38,27 @@
           <option ng-repeat="title in titles" value="{{title.id}}">{{title.name}}</option>
         </select>
       </div>
+      <div ng-repeat="skill in skills">
+        <input type="checkbox" ng-model="selection.ids[skill.id]" name="{{skill.name}}" >
+        <label for="{{skill.name}}">{{skill.name}}</label>
+      </div>
       <button type="submit" ng-disabled="createUserForm.$invalid">Submit</button>
     </form>
   </div>
+
+  <div>
+    <pre ng-bind="selection.ids | json"></pre>   
+  </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
