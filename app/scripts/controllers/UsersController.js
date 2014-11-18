@@ -67,7 +67,7 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,title
     $scope.selection = angular.copy($scope.master);
   };
 
-  // $scope.reset();
+  $scope.reset();
 
 });
 
