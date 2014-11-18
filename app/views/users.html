@@ -1,5 +1,4 @@
 <section ng-controller="UserCtrl">
-  
   <!-- All users list -->
   <div class="user index">
     <h1>All Users</h1>
@@ -22,7 +21,6 @@
       </tbody>
     </table>
   </div>
-
   <!-- currentUser show -->
   <div ng-show="currentUser" class="user show">
     <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
@@ -34,7 +32,6 @@
   </div>
 
   <hr>
-
   <!-- create a new user -->
   <div class="user create">
     <h1>Create a new user</h1>
@@ -61,18 +58,4 @@
       <button type="submit" ng-disabled="createUserForm.$invalid">Submit</button>
     </form>
   </div>
-
-  
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
