@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular
-  .module('ngsandboxApp', [
+  .module('ngSandboxApp', [
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -32,6 +32,10 @@ angular
       .when('/contact',{
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl'
+      })
+      .when('/users', {
+        templateUrl: 'views/users.html',
+        controller: 'UserCtrl'
       })
       .otherwise({
         redirectTo: '/'

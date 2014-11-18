@@ -1,0 +1,9 @@
+<nav class="header" ng-controller="NavbarCtrl">
+  <ul class="nav nav-pills pull-right">
+    <li ng-class="{ active: isActive('/')}" class="active"><a ng-href="#">Home</a></li>
+    <li ng-class="{ active: isActive('/about')}"><a ng-href="#/about">About</a></li>
+    <li ng-class="{ active: isActive('/contact')}"><a ng-href="#/contact">Contact</a></li>
+    <li ng-class="{ active: isActive('/users')}"><a ng-href="#/users">Users</a></li>
+  </ul>
+  <h3 class="text-muted">ngsandbox</h3>
+</nav>

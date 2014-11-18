@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the ngsandboxApp
  */
-angular.module('ngsandboxApp')
+angular.module('ngSandboxApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
