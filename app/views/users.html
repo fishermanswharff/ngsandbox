@@ -30,7 +30,6 @@
       <li ng-repeat="skill in currentUser.skills">{{skill.name}}</li>
     </ul>
   </div>
-
   <hr>
   <!-- create a new user -->
   <div class="user create">
@@ -51,7 +50,7 @@
         </select>
       </div>
       <div ng-repeat="skill in skills">
-        <input type="checkbox" ng-checked="hasSkill(skill)" ng-model="selection.ids[skill.id]" name="{{skill.name}}" >
+        <input type="checkbox" ng-checked="hasSkill(skill)" ng-model="skill.checked" name="{{skill.name}}" >
         <label for="{{skill.name}}">{{skill.name}}</label>
       </div>
       <button ng-click="reset()">Reset</button>
