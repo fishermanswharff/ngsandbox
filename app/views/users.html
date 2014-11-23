@@ -1,20 +1,24 @@
 <section class="container" ng-controller="UserCtrl">
   <!-- All users list -->
-  <div class="user index grid_4 alpha">
+  <div class="user index grid_8 alpha">
     <h1>All Users</h1>
-    <div class="user-instance" ng-repeat="user in users">
+    <div class="user-instance grid_8" ng-repeat="user in users">
       <h2>{{::user.first_name}} {{::user.last_name}}</h2>
       <h4>Title: <span class="title">{{::titles[user.title_id - 1].name}}</span></h4>
       <p><a class="btn btn-default" href="javascript:void(0)" ng-click="updateUser(user)">Update</a> <a class="btn btn-default" href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></p>
     </div>
-    
+    <div class="grid_8">
+      <ul>
+        <li></li>
+      </ul>
+    </div>
   </div>
   <!-- currentUser show -->
   
   <!-- update a new user -->
-  <div class="user create grid_12">
-    <h1 ng-if="user">Update user {{user.first_name}} {{user.last_name}}</h1>
-    <h1 ng-if="!user">Create a new user</h1>
+  <div class="user create grid_8 omega">
+    <h1 ng-if="user.id">Update user {{user.first_name}} {{user.last_name}}</h1>
+    <h1 ng-if="!user.id">Create a new user {{user.first_name}} {{user.last_name}}</h1>
     <form role="form" name="createUserForm" ng-submit="upsertUser(user)" novalidate>
       <div class="form-group">
         <label for="first_name">First Name</label>
