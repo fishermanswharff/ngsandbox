@@ -1,16 +1,11 @@
-angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,$q,ServerUrl,titleFactory,skillsFactory,trace){
+angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,$q,ServerUrl,titleFactory,skillsFactory,userFactory,trace){
   'use strict';
   
-  $scope.users = [];
-  $scope.selection = { ids: {}};
-  $scope.master = {};
+  $scope.users = userFactory.users;
+  $scope.titles = titleFactory.titles;
+  $scope.skills = skillsFactory.skills;
 
-  // get all users, set the scope for titles and skills
-  $http.get('http://localhost:3000/users').success(function(response){
-    $scope.users = response;
-    $scope.titles = titleFactory.titles;
-    $scope.skills = skillsFactory.skills;
-  });
+  // trace($scope.users,$scope.titles,$scope.skills);
 
   var updateSkills = function(user_id) {
     var promises = [];
@@ -21,6 +16,7 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,$q,Se
       if (isChecked && !wasChecked) {
         promises.push($http.put('http://localhost:3000/users/' + user_id + '/skills/' + item.id));
       }
+      
       // remove skill
       if (!isChecked && wasChecked) {
         promises.push($http.delete('http://localhost:3000/users/' + user_id + '/skills/' + item.id));
@@ -30,31 +26,28 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,$q,Se
   };
   
   // for creating and updating users
-  // TODO: update skills: not working because hasSkill(skill) doesn't assign $scope.selection.ids
   $scope.upsertUser = function(user){
     var params = { user: user };
     if(user.id){
-      $http.put(ServerUrl + 'users/' + user.id, params).success(function(response){
-         trace(response);
+      $http.put('http://localhost:3000/users/' + user.id, params).success(function(response){
         $q.all(updateSkills(user.id)).then(function() {
-          $scope.reset();
+          clearForm();
+          $scope.currentUser = {};
         });
       });
     } else {
       $http.post('http://localhost:3000/users',params).success(function(response){
-        trace(response);
-        $http.post(ServerUrl + 'users', params).success(function(response) {
-          $q.all(updateSkills(response.id)).then(function() {
-            $scope.reset();
-          });
+        $q.all(updateSkills(response.id)).then(function() {
+          clearForm();
+          $scope.currentUser = {};
         });
       });
     }
-    $scope.user = {};
   };
 
   // set the scope to the selected user
   $scope.updateUser = function(user){
+    // $scope.currentUser = user;
     $scope.user = user;
     _.forEach($scope.skills, function(item) {
       if ($scope.hasSkill(item)) {
@@ -66,7 +59,6 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,$q,Se
   // set the checkboxes to be checked if the user has a skill
   // this runs for every item in the skills array
   $scope.hasSkill = function(skill){
-    
     // array to push items into
     var found = [];
 
@@ -85,7 +77,7 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,$q,Se
 
   // view the deets of a particular user
   $scope.viewUser = function(user){
-    $scope.currentUser = user;
+    $scope.user = user;
     // $scope.currentUserSkills = user.skills;
   };
 
@@ -93,18 +85,14 @@ angular.module('ngSandboxApp').controller('UserCtrl',function($scope,$http,$q,Se
   $scope.deleteUser = function(user){
     $http.delete(ServerUrl + 'users/' + user.id).success(function(response) {
       $scope.users.splice($scope.users.indexOf(user), 1);
-      $scope.reset();
+      clearForm();
     });
   };
 
-  // reset the form by calling this function 
-  $scope.reset = function() {
-    // $scope.user = angular.copy($scope.master);
-    $scope.selection = angular.copy($scope.master);
+  var clearForm = function() {
+    $scope.user = {};
+    userFactory.fetch();
     skillsFactory.resetChecked();
   };
-
-  // reset the form
-  $scope.reset();
-
+  
 });

@@ -1,12 +1,25 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-  <h4>ngSandbox</h4>
-</div>
+<h1>Projects that need help!!</h1>
+<section class="container home-index-wrapper" jw-allocation>
+  <div class="projects grid_12">
+    <div class="project" ng-if="hasRequest(project)" ng-repeat="project in projects">
+      <h2>{{project.name}}</h2>
+      <div class="staffing-request grid_16" ng-if="req.project_id == project.id" ng-repeat="req in requests">
+        <div class="request-info grid_8" >
+          <p>
+            Status: {{req.status}}<br/>
+            Starts: {{req.start_date | date:short}}<br/>
+            Needs: {{titles[req.title_id].name}} for {{req.percentage}}% time<br/>
+          </p>
+        </div>
+        <div class="allocation grid_8">
+          <span class="prompt">Drag a staff member here to allocate</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar grid_4">
+    <ul class="staff-buttons">
+      <li ng-repeat="user in users"><a class="btn btn-primary" href="javascript:void(0)" title="{{user.id}}">{{user.first_name}} {{user.last_name | initializeName }}: {{titles[user.title_id - 1].name | capitalize }}</a></li>
+    </ul>
+  </div>
+</section>

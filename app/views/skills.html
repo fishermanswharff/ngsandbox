@@ -1,1 +1,33 @@
-<h1>Skills</h1>
+<div class="container">
+  <div class="grid_16">
+    <h1>Skills</h1>
+    <div class="skill index grid_8">
+      <!-- skills view with CRUD functionality -->
+      <table>
+        <thead>
+          <tr>
+            <th>Skills</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="skill in skills">
+            <td>{{skill.name}}</td>
+            <td><a href="javascript:void(0)" ng-click="updateSkill(skill)">Update</a> | <a href="javascript:void(0)" ng-click="deleteSkill(skill)">delete</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="skill create grid_8">
+      <h1>Create a new skill</h1>
+      <form role="form" name="createSkillForm" ng-submit="upsertSkill(skill)" novalidate>
+        <div class="form-group">
+          <label for="name">First Name</label>
+          <input type="text" name="name" placeholder="skill name" ng-model="skill.name">
+        </div>
+        <button class="btn btn-default" ng-click="clearForm()">Reset</button>
+        <button class="btn btn-default" type="submit" ng-disabled="createSkillForm.$invalid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

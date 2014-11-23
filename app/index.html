@@ -2,7 +2,10 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <script src="//use.typekit.net/vum4rex.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+
+    <title>ngSandboxApp</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -20,7 +23,7 @@
     <![endif]-->
 
     <ng-include src="'views/nav.html'"></ng-include>
-    <div ng-view></div>
+    <div id="container" ng-view></div>
     <ng-include src="'views/footer.html'"></ng-include>
 
     <!-- build:js(.) scripts/oldieshim.js -->
@@ -49,6 +52,7 @@
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
+    <script src="scripts/routes.js"></script>
     <!-- constants -->
     <script src="scripts/constants/constants.js"></script>
     
@@ -58,13 +62,25 @@
     <script src="scripts/controllers/ContactController.js"></script>
     <script src="scripts/controllers/NavbarController.js"></script>
     <script src="scripts/controllers/UsersController.js"></script>
+    <script src="scripts/controllers/SkillsController.js"></script>
+    <script src="scripts/controllers/LoginController.js"></script>
+
+    <!-- directives -->
+    <script src="scripts/directives/MainDirective.js"></script>
+    <script src="scripts/directives/HomeDirective.js"></script>
 
     <!-- factories & services-->
     <script src="scripts/factories/TitleFactory.js"></script>
     <script src="scripts/factories/SkillsFactory.js"></script>
+    <script src="scripts/factories/UsersFactory.js"></script>
+    <script src="scripts/factories/RequestsFactory.js"></script>
+    <script src="scripts/factories/ProjectFactory.js"></script>
+    <script src="scripts/factories/AuthFactory.js"></script>
     <script src="scripts/services/TraceService.js"></script>
 
-    
+    <!-- filters -->
+    <script src="scripts/filters/TypeFilter.js"></script>
+
     <!-- endbuild -->
   </body>
 </html>

@@ -1,9 +1,13 @@
-<nav class="header" ng-controller="NavbarCtrl">
+<nav class="navbar" ng-controller="NavbarCtrl">
   <ul class="nav nav-pills pull-right">
-    <li ng-class="{ active: isActive('/')}" class="active"><a ng-href="#">Home</a></li>
-    <li ng-class="{ active: isActive('/about')}"><a ng-href="#/about">About</a></li>
-    <li ng-class="{ active: isActive('/contact')}"><a ng-href="#/contact">Contact</a></li>
-    <li ng-class="{ active: isActive('/users')}"><a ng-href="#/users">Users</a></li>
+    <li ng-if="isLoggedIn()" ng-class="{ active: isActive('/')}" class="active"><a ng-href="#">Home</a></li>
+    <li ng-if="isLoggedIn()" ng-class="{ active: isActive('/about')}"><a ng-href="#/about">About</a></li>
+    <li ng-if="isLoggedIn()" ng-class="{ active: isActive('/contact')}"><a ng-href="#/contact">Contact</a></li>
+    <li ng-if="isLoggedIn()" ng-class="{ active: isActive('/users')}"><a ng-href="#/users">Users</a></li>
+    <li ng-if="isLoggedIn()" ng-class="{ active: isActive('/skills')}"><a ng-href="#/skills">Skills</a></li>
   </ul>
-  <h3 class="text-muted">ngsandbox</h3>
+  <ul class="nav navbar-nav navbar-right">
+    <li ng-if="!isLoggedIn()"><a ng-href="#/login">Login</a></li>
+    <li ng-if="isLoggedIn()"><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
+  </ul>
 </nav>

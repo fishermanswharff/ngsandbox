@@ -1,0 +1,26 @@
+section.container {
+  div.user {
+
+    &.index {
+      h2,h4 { margin-top: 2px; margin-bottom: 2px; }
+      h4 { 
+        font-weight: 400;
+        span.title {
+          font-weight: 700;
+        }
+      }
+      div.user-instance {
+        border-bottom: 1px dotted $charcoal;
+        margin: 0 0 20px;
+      }
+    }
+    &.create {
+      form{
+        div.skill {
+          display: inline-block;
+          margin: 5px 10px;
+        }
+      }
+    }
+  }
+}

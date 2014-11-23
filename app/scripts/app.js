@@ -7,9 +7,8 @@
  * # ngsandboxApp
  *
  * Main module of the application.
- */
-angular
-  .module('ngSandboxApp', [
+*/
+angular.module('ngSandboxApp', [
     'ngAnimate',
     'ngAria',
     'ngCookies',
@@ -17,31 +16,19 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .when('/contact',{
-        templateUrl: 'views/contact.html',
-        controller: 'ContactCtrl'
-      })
-      .when('/users', {
-        templateUrl: 'views/users.html',
-        controller: 'UserCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  }).run(function(titleFactory){
-    titleFactory.fetch();
-  }).run(function(skillsFactory){
-    skillsFactory.fetch();
-  });
+    'ngTouch',
+    'MainDirective'
+  ]).run(function($rootScope,$location,$http,$window,AuthFactory,titleFactory,skillsFactory,userFactory,RequestsFactory,ProjectFactory){
+    $rootScope.$on('$routeChangeStart', function(event,next){
+      if(AuthFactory.isAuthenticated()){
+        $http.defaults.headers.common.Authorization = 'Token token=' + $window.sessionStorage.getItem('ngSandboxApp.user');
+        titleFactory.fetch();
+        skillsFactory.fetch();
+        userFactory.fetch();
+        RequestsFactory.fetch();
+        ProjectFactory.fetch();
+      } else {
+        $location.path('/login');
+      }
+    });
+});

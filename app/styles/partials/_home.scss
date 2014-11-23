@@ -1,0 +1,36 @@
+section.home-index-wrapper {
+  div.projects {
+    margin-bottom: 50px;
+    div.project {
+      h2 {
+        margin: 0 0 2px;
+      }
+      div.staffing-request {
+        div.request-info {
+          p {
+            margin: 0 0 10px;
+          }
+        }
+        div.allocation {
+          box-sizing: border-box;
+          background-color: $black-10;
+          height: 100px;
+          border: 1px solid $charcoal;
+          span.prompt { 
+            margin: auto auto;
+            color: $black-30; 
+            font-family: $body-font;
+            display: block;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+  div.sidebar {
+    ul.staff-buttons {
+      @include defaults();
+      list-style: none;
+    }
+  }
+}

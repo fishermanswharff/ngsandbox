@@ -1,0 +1,23 @@
+body {
+  @include defaults;
+  padding-top: 60px;
+  @include transition(all, 0.25s, ease-in-out, 0);
+  
+  #container.main-content { 
+    @include transition(all, 0.25s, ease-in-out, 0);
+    box-sizing: border-box;    
+    padding-left: 20px;
+    z-index: $z-body; 
+    width: 100%;
+    
+    &.active {
+      left: 25%;
+      width: 75%;
+      position: relative;
+
+    }
+  }
+  .inline-list { @include defaults }
+  .inline-list > li { @include inline-list }
+  
+}

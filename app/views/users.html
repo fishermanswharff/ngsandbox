@@ -1,39 +1,20 @@
-<section ng-controller="UserCtrl">
+<section class="container" ng-controller="UserCtrl">
   <!-- All users list -->
-  <div class="user index">
+  <div class="user index grid_4 alpha">
     <h1>All Users</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Title</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="user in users">
-          <td>{{::user.first_name}}</td>
-          <td>{{::user.last_name}}</td>
-          <td>{{::titles[user.title_id - 1].name}}</td>
-          <td><a href="javascript:void(0)" ng-click="updateUser(user)">Update</a> | <a href="javascript:void(0)" ng-click="viewUser(user)">view</a> | <a href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="user-instance" ng-repeat="user in users">
+      <h2>{{::user.first_name}} {{::user.last_name}}</h2>
+      <h4>Title: <span class="title">{{::titles[user.title_id - 1].name}}</span></h4>
+      <p><a class="btn btn-default" href="javascript:void(0)" ng-click="updateUser(user)">Update</a> <a class="btn btn-default" href="javascript:void(0)" ng-click="deleteUser(user)">delete</a></p>
+    </div>
+    
   </div>
   <!-- currentUser show -->
-  <div ng-show="currentUser" class="user show">
-    <h1>{{currentUser.first_name}} {{currentUser.last_name}}</h1>
-    <p>id: {{currentUser.id}} | role: {{currentUser.role}} | title: {{titles[currentUser.title_id - 1].name}}
-    </p>
-    <ul>
-      <li ng-repeat="skill in currentUser.skills">{{skill.name}}</li>
-    </ul>
-  </div>
-  <hr>
-  <!-- create a new user -->
-  <div class="user create">
-    <h1>Create a new user</h1>
+  
+  <!-- update a new user -->
+  <div class="user create grid_12">
+    <h1 ng-if="user">Update user {{user.first_name}} {{user.last_name}}</h1>
+    <h1 ng-if="!user">Create a new user</h1>
     <form role="form" name="createUserForm" ng-submit="upsertUser(user)" novalidate>
       <div class="form-group">
         <label for="first_name">First Name</label>
@@ -44,17 +25,33 @@
         <input type="text" name="last_name" placeholder="first name" ng-model="user.last_name">
       </div>
       <div class="form-group">
+        <label for="email">Email</label>
+        <input name="email" type="email" placeholder="email address" ng-model="user.email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" ng-model="user.password">
+      </div>
+      <div class="form-group">
+        <label for="password_confirmation">Password</label>
+        <input type="password" name="password_confirmation" ng-model="user.password_confirmation">
+      </div>
+      <div class="form-group">
         <label for="titles">Title for user</label>
         <select name="titles" ng-model="user.title_id" ng-options="title.id as title.name for title in titles" required>
           <option value="">Select One</option>
         </select>
       </div>
-      <div ng-repeat="skill in skills">
-        <input type="checkbox" ng-checked="hasSkill(skill)" ng-model="skill.checked" name="{{skill.name}}" >
-        <label for="{{skill.name}}">{{skill.name}}</label>
+      <div class="skill" ng-repeat="skill in skills">
+        <label for="{{skill.name}}">
+        <input type="checkbox" ng-checked="hasSkill(skill)" ng-model="skill.checked" name="{{skill.name}}">{{skill.name}}
+        </label>
       </div>
-      <button ng-click="reset()">Reset</button>
-      <button type="submit" ng-disabled="createUserForm.$invalid">Submit</button>
+      <div>
+        <button class="btn btn-primary" ng-click="clearForm()">Reset</button>
+        <button class="btn btn-primary" type="submit" ng-disabled="createUserForm.$invalid">Submit</button>
+      </div>
     </form>
+    
   </div>
 </section>
