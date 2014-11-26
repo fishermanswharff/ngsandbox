@@ -25,6 +25,10 @@ angular.module('ngSandboxApp').config(function($routeProvider) {
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl'
     })
+    .when('/dashboards',{
+      templateUrl: 'views/dashboard.html',
+      controller: 'AdminCtrl'
+    })
     .otherwise({
       redirectTo: '/'
     });
