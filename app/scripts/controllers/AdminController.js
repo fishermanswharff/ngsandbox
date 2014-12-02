@@ -10,7 +10,4 @@ angular.module('ngSandboxApp').controller('AdminCtrl',function($http,$scope,trac
   }).error(function(data,status,headers,config){
     trace(data,status,headers,config);
   });
-
-
-
 });
