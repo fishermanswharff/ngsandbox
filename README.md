@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/fishermanswharff/ngsandbox/badges/gpa.svg)](https://codeclimate.com/github/fishermanswharff/ngsandbox)
+
 ngSandbox
 =======
 
